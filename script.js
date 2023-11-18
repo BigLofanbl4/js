@@ -1,115 +1,60 @@
 "use strict";
 
-class MyMap {
-  constructor() {
-    this._entries = {};
-    this[Symbol.iterator] = function() {
-      return {
-        _index: 0,
-        _entries: this._entries,
-        [Symbol.iterator]() {
-          return this
-        },
-        next() {
-          let entry = this._entries[this._index];
-          if (entry !== undefined) {
-            this[this._index] = entry;
-            this._index += 1;
-            return {done: false, value: [entry.key, entry.value]};
-          } else {
-            return {done: true};
-          }
-        }
-      }
-    }
-    this.size = 0;
-  }
-  set(key, value) {
-    this._entries[this.size] = {key, value};
-    this.size += 1;
-  }
-  get(key) {
-    for(let i = 0; i < this.size; i++) {
-      let entry = this._entries[i];
-      if (entry.key === key) {
-        return entry.value;
-      }
-    }
-    return undefined;
-  }
-  has(key) {
-    if (this.get(key) !== undefined) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  delete(key) {
-    for (let i = 0; i < this.size; i++) {
-      let entry = this._entries[i];
-      if (entry.key === key) {
-        delete this._entries[i];
-      } else {
-        this._entries[i - 1] = this._entries[i];
-      }
-    }
-    this.size -= 1;
-    delete this._entries[this.size];
-  }
-  clear() {
-    this.entries = {};
-    this.size = 0;
-  }
-  entries() {
-    return this[Symbol.iterator]();
-  }
-  values() {
-    const res = {
-      [Symbol.iterator]() {
-        return {
-          _index: 0,
-          next() {
-            let value = res[this._index];
-            if (value !== undefined) {
-              this._index += 1;
-              return {done: false, value};
-            } else {
-              return {done: true};
-            }
-          }
-        }
-      }
-    };
-    for (let i = 0; i < this.size; i++) {
-      res[i] = this._entries[i].value;
-    }
-    return res;
-  }
-  keys() {
-    const res = {
-      [Symbol.iterator]() {
-        return {
-          _index: 0,
-          next() {
-            let key = res[this._index];
-            if (key !== undefined) {
-              this._index += 1;
-              return {done: false, value: key};
-            } else {
-              return {done: true};
-            }
-          }
-        }
-      }
-    };
-    for (let i = 0; i < this.size; i++) {
-      res[i] = this._entries[i].key;
-    }
-    return res;
-  }
-  forEach(callBackFunc, thisArg) {
-    for (let i = 0; i < this.size; i++) {
-      callBackFunc.call(thisArg, this._entries[i], i, this._entries);
-    }
-  }
-}
+// // function func(arr) {
+// //   let sum = 0;
+// //   let connected = new Set();
+// //   for (let i = 0; i < arr.length; i++) {
+// //     let dist = Infinity;
+// //     let toBeConnected = null;
+// //     connected.add(arr[i]);
+// //     for (let j = 0; j < arr.length; j++) {
+// //       if (j == i) continue;
+// //       if (dist > Math.abs(arr[i] - arr[j])) {
+// //         dist = Math.abs(arr[i] - arr[j]);
+// //         toBeConnected = arr[j];
+// //       }
+// //     }
+// //     if (!connected.has(toBeConnected)) {
+// //       sum += dist;
+// //     }
+// //   }
+// //   return sum;
+// // }
+// // console.log(func([3, 13, 12, 4, 14, 6]));
+// // [3, 13, 12, 4, 14, 6] => [3, 4, 6, 12, 13, 14]
+
+// // function moveZeros(arr) {
+// //   // let arrCopy = arr.slice();
+// //   // let length = arrCopy.length;
+// //   // for (let i = 0; i < length; i++) {
+// //   //   if (arrCopy[i] === 0) {
+// //   //     arrCopy.splice(i, 1);
+// //   //     arrCopy.push(0);
+// //   //     i--;
+// //   //     length--;
+// //   //   }
+// //   // }
+// //   // return arrCopy;
+// //   return arr.filter((elem) => elem !== 0).concat(arr.filter(elem => elem === 0));
+// // }
+
+// // console.log(moveZeros([1,2,0,1,0,1,0,3,0,1]));
+
+// // [1,2,0,1,0,1,0,3,0,1] => [1,2,1,1,3,1,0,0,0,0]
+
+// function order(words) {
+//   // words = words.split(" ");
+//   // let res = [];
+//   // for (let i = 1; i < words.length + 1; i++) {
+//   //   res.push(words.find(word => {
+//   //     for (let char of word) {
+//   //       if (char == i) return true;
+//   //     }
+//   //     return false;
+//   //   }))
+//   // }
+//   // return res.join(" ");
+
+// }
+
+// console.log(order("is2 Thi1s T4est 3a"));
