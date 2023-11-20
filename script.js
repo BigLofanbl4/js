@@ -1,115 +1,63 @@
 "use strict";
 
-class MyMap {
+let arr = new Array(1, 2, 3);
+console.log(arr.__proto__);
+
+class MyArray {
   constructor() {
-    this._entries = {};
+    this.length = arguments.length;
+    for (let i = 0; i < arguments.length; i++) {
+      this[i] = arguments[i];
+    }
     this[Symbol.iterator] = function() {
       return {
-        _index: 0,
-        _entries: this._entries,
-        [Symbol.iterator]() {
-          return this
-        },
+        self: this,
+        index: 0,
         next() {
-          let entry = this._entries[this._index];
-          if (entry !== undefined) {
-            this[this._index] = entry;
-            this._index += 1;
-            return {done: false, value: [entry.key, entry.value]};
+          if (this.self.hasOwnProperty(this.index)) {
+            return {done: false, value: this.self[this.index++]};
           } else {
             return {done: true};
           }
         }
       }
     }
-    this.size = 0;
   }
-  set(key, value) {
-    this._entries[this.size] = {key, value};
-    this.size += 1;
+  pop() {
+    let removedElem = this[this.length - 1];
+    delete this[this.length - 1];
+    this.length = this.length !== 0 ? this.length - 1 : this.length;
+    return removedElem;
   }
-  get(key) {
-    for(let i = 0; i < this.size; i++) {
-      let entry = this._entries[i];
-      if (entry.key === key) {
-        return entry.value;
-      }
+  push() {
+    for (let i = 0; i < arguments.length; i++) {
+      this[this.length] = arguments[i];
+      this.length += 1;
     }
-    return undefined;
+    return this.length;
   }
-  has(key) {
-    if (this.get(key) !== undefined) {
-      return true;
-    } else {
-      return false;
+  includes(searchElem, fromIndex) {
+    let index = isNaN(fromIndex) ? 0 : fromIndex;
+    for (index; index < this.length; index++) {
+      if (this[index] === searchElem) return true;
     }
+    return false;
   }
-  delete(key) {
-    for (let i = 0; i < this.size; i++) {
-      let entry = this._entries[i];
-      if (entry.key === key) {
-        delete this._entries[i];
-      } else {
-        this._entries[i - 1] = this._entries[i];
-      }
+  reduce(callBackFunc, initialVal) {
+    let prev = initialVal !== undefined ? initialVal : this[0];
+    let index = initialVal !== undefined ? 0 : 1;
+    for (index; index < this.length; index++) {
+      prev = callBackFunc(prev, this[index], index, this);
     }
-    this.size -= 1;
-    delete this._entries[this.size];
+    return prev;
   }
-  clear() {
-    this.entries = {};
-    this.size = 0;
-  }
-  entries() {
-    return this[Symbol.iterator]();
-  }
-  values() {
-    const res = {
-      [Symbol.iterator]() {
-        return {
-          _index: 0,
-          next() {
-            let value = res[this._index];
-            if (value !== undefined) {
-              this._index += 1;
-              return {done: false, value};
-            } else {
-              return {done: true};
-            }
-          }
-        }
-      }
-    };
-    for (let i = 0; i < this.size; i++) {
-      res[i] = this._entries[i].value;
+  map(callBackFunc, thisArg) {
+    const resArr = new MyArray(...this);
+    for (let i = 0; i < resArr.length; i++) {
+      resArr[i] = callBackFunc.call(thisArg, resArr[i], i, resArr);
     }
-    return res;
-  }
-  keys() {
-    const res = {
-      [Symbol.iterator]() {
-        return {
-          _index: 0,
-          next() {
-            let key = res[this._index];
-            if (key !== undefined) {
-              this._index += 1;
-              return {done: false, value: key};
-            } else {
-              return {done: true};
-            }
-          }
-        }
-      }
-    };
-    for (let i = 0; i < this.size; i++) {
-      res[i] = this._entries[i].key;
-    }
-    return res;
-  }
-  forEach(callBackFunc, thisArg) {
-    for (let i = 0; i < this.size; i++) {
-      callBackFunc.call(thisArg, this._entries[i], i, this._entries);
-    }
+    return resArr;
   }
 }
+
+let myArr = new MyArray(1, 2, 3);
