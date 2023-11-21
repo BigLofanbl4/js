@@ -1,60 +1,125 @@
 "use strict";
 
-// // function func(arr) {
-// //   let sum = 0;
-// //   let connected = new Set();
-// //   for (let i = 0; i < arr.length; i++) {
-// //     let dist = Infinity;
-// //     let toBeConnected = null;
-// //     connected.add(arr[i]);
-// //     for (let j = 0; j < arr.length; j++) {
-// //       if (j == i) continue;
-// //       if (dist > Math.abs(arr[i] - arr[j])) {
-// //         dist = Math.abs(arr[i] - arr[j]);
-// //         toBeConnected = arr[j];
-// //       }
-// //     }
-// //     if (!connected.has(toBeConnected)) {
-// //       sum += dist;
-// //     }
-// //   }
-// //   return sum;
-// // }
-// // console.log(func([3, 13, 12, 4, 14, 6]));
-// // [3, 13, 12, 4, 14, 6] => [3, 4, 6, 12, 13, 14]
+// let animal = {
+//   eats: true,
+//   walk() {
+//     console.log("Animal walk");
+//   }
+// };
+// let rabbit = {
+//   jumps: true,
+//   __proto__: animal
+// };
 
-// // function moveZeros(arr) {
-// //   // let arrCopy = arr.slice();
-// //   // let length = arrCopy.length;
-// //   // for (let i = 0; i < length; i++) {
-// //   //   if (arrCopy[i] === 0) {
-// //   //     arrCopy.splice(i, 1);
-// //   //     arrCopy.push(0);
-// //   //     i--;
-// //   //     length--;
-// //   //   }
-// //   // }
-// //   // return arrCopy;
-// //   return arr.filter((elem) => elem !== 0).concat(arr.filter(elem => elem === 0));
-// // }
-
-// // console.log(moveZeros([1,2,0,1,0,1,0,3,0,1]));
-
-// // [1,2,0,1,0,1,0,3,0,1] => [1,2,1,1,3,1,0,0,0,0]
-
-// function order(words) {
-//   // words = words.split(" ");
-//   // let res = [];
-//   // for (let i = 1; i < words.length + 1; i++) {
-//   //   res.push(words.find(word => {
-//   //     for (let char of word) {
-//   //       if (char == i) return true;
-//   //     }
-//   //     return false;
-//   //   }))
-//   // }
-//   // return res.join(" ");
-
+// for (let prop in rabbit) {
+//   let isOwn = rabbit.hasOwnProperty(prop)
+//   if (isOwn) {
+//     console.log(`Our: ${prop}`);
+//   } else {
+//     console.log(`Inherited: ${prop}`);
+//   }
 // }
 
-// console.log(order("is2 Thi1s T4est 3a"));
+// rabbit.walk = function() {
+//   console.log("Rabbit! Bounce-bounce!");
+// }
+
+// rabbit.walk();
+
+// let user = {
+//   name: "John",
+//   surname: "Smith",
+
+//   set fullName(value) {
+//     [this.name, this.surname] = value.split(" ");
+//   },
+//   get fullName() {
+//     return `${this.name} ${this.surname}`;
+//   }
+// };
+
+// let admin = {
+//   __proto__: user,
+//   isAdmin: true
+// };
+
+// console.log(admin.fullName);
+
+// admin.fullName = "Alice Cooper";
+// console.log(admin.name);
+// console.log(admin.surname);
+// console.log(admin);
+
+// let animal = {
+//   walk() {
+//     if (!this.isSleeping) {
+//       console.log("I walk");
+//     }
+//   },
+//   sleep() {
+//     this.isSleeping = true;
+//   }
+// };
+
+// let rabbit = {
+//   name: "White Rabbit",
+//   __proto__: animal
+// };
+
+// rabbit.sleep();
+// console.log(rabbit.isSleeping);
+// console.log(rabbit);
+// console.log(animal.isSleeping);
+
+// let head = {
+//   glasses: 1
+// };
+
+// let table = {
+//   pen: 3,
+//   __proto__: head
+// };
+
+// let bed = {
+//   sheet: 1,
+//   pillow: 2,
+//   __proto__: table
+// };
+
+// let pockets = {
+//   money: 2000,
+//   __proto__: bed
+// };
+// console.log(pockets.pen);
+// console.log(bed.glasses);
+
+// let animal = {
+//   eat() {
+//     this.full = true;
+//   }
+// };
+
+// let rabbit = {
+//   __proto__: animal
+// };
+
+// rabbit.eat();
+// console.log(rabbit);
+
+let hamster = {
+
+  eat(food) {
+    this.stomach = [food];
+  }
+};
+
+let speedy = {
+  __proto__: hamster
+};
+let lazy = {
+  __proto__: hamster
+};
+
+speedy.eat("apple");
+console.log(speedy.stomach);
+console.log(lazy.stomach);
