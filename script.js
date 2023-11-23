@@ -1,60 +1,71 @@
 "use strict";
 
-// // function func(arr) {
-// //   let sum = 0;
-// //   let connected = new Set();
-// //   for (let i = 0; i < arr.length; i++) {
-// //     let dist = Infinity;
-// //     let toBeConnected = null;
-// //     connected.add(arr[i]);
-// //     for (let j = 0; j < arr.length; j++) {
-// //       if (j == i) continue;
-// //       if (dist > Math.abs(arr[i] - arr[j])) {
-// //         dist = Math.abs(arr[i] - arr[j]);
-// //         toBeConnected = arr[j];
-// //       }
-// //     }
-// //     if (!connected.has(toBeConnected)) {
-// //       sum += dist;
-// //     }
-// //   }
-// //   return sum;
-// // }
-// // console.log(func([3, 13, 12, 4, 14, 6]));
-// // [3, 13, 12, 4, 14, 6] => [3, 4, 6, 12, 13, 14]
+// let user = {
+//   name: "John",
+// };
 
-// // function moveZeros(arr) {
-// //   // let arrCopy = arr.slice();
-// //   // let length = arrCopy.length;
-// //   // for (let i = 0; i < length; i++) {
-// //   //   if (arrCopy[i] === 0) {
-// //   //     arrCopy.splice(i, 1);
-// //   //     arrCopy.push(0);
-// //   //     i--;
-// //   //     length--;
-// //   //   }
-// //   // }
-// //   // return arrCopy;
-// //   return arr.filter((elem) => elem !== 0).concat(arr.filter(elem => elem === 0));
-// // }
+// let descriptor = Object.getOwnPropertyDescriptor(user, "name");
+// console.log(descriptor);
+// console.log(JSON.stringify(descriptor, null, 2));
 
-// // console.log(moveZeros([1,2,0,1,0,1,0,3,0,1]));
+// let user = {
+  // name: "Lofanbl4"
+// };
+// Object.defineProperty(user, "name", {
+//   value: "lofanbl4",
+// });
+// Object.defineProperty(user, "name", {
+//   value: "Lofanlb4",
+//   enumerable: true,
+//   configurable: true
+// });
 
-// // [1,2,0,1,0,1,0,3,0,1] => [1,2,1,1,3,1,0,0,0,0]
+// console.log(Object.getOwnPropertyDescriptor(user, "name"));
 
-// function order(words) {
-//   // words = words.split(" ");
-//   // let res = [];
-//   // for (let i = 1; i < words.length + 1; i++) {
-//   //   res.push(words.find(word => {
-//   //     for (let char of word) {
-//   //       if (char == i) return true;
-//   //     }
-//   //     return false;
-//   //   }))
-//   // }
-//   // return res.join(" ");
+// user.name = "Pete";
 
-// }
+// let user = {
+//   name: "lofanbl4",
+//   toString() {
+//     return this.name;
+//   }
+// };
 
-// console.log(order("is2 Thi1s T4est 3a"));
+// Object.defineProperty(user, "toString", {
+//   enumerable: false
+// })
+
+// for (let key in user) console.log(key);
+// console.log(Object.keys(user));
+// Object.defineProperty(user, "name", {
+//   value: "Lofanbl4",
+//   writable: true,
+// });
+
+// console.log(Object.getOwnPropertyDescriptor(user, "name"));
+
+// Object.defineProperty(user, "name", {
+//   writable: false,
+// });
+
+// console.log(Object.getOwnPropertyDescriptor(user, "name"))
+// console.log(user);
+
+// let descriptor = Object.getOwnPropertyDescriptor(Math, "PI");
+// console.log(descriptor);
+
+// let user = {};
+// Object.defineProperties(user, {
+//   name: {value: "Lofanbl4", writable: false, enumerable: true},
+//   age: {value: 18, writable: true, enumerable: true}
+// });
+
+// console.log(user);
+// console.log(Object.getOwnPropertyDescriptors(user));
+
+// let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(user));
+// console.log(Object.getOwnPropertyDescriptors(clone));
+
+// let assignClone = Object.assign({}, user);
+// console.log(Object.getOwnPropertyDescriptors(assignClone));
+
