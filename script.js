@@ -68,4 +68,3 @@
 
 // let assignClone = Object.assign({}, user);
 // console.log(Object.getOwnPropertyDescriptors(assignClone));
-
