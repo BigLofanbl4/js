@@ -1,70 +1,77 @@
 "use strict";
 
-// let user = {
-//   name: "John",
+// let animal = {
+//   eats: true
 // };
 
-// let descriptor = Object.getOwnPropertyDescriptor(user, "name");
-// console.log(descriptor);
-// console.log(JSON.stringify(descriptor, null, 2));
+// let rabbit = Object.create(animal, {
+//   jumps: {
+//     value: true,
+//     writable: true,
+//     configurable: true
+//   },
 
-// let user = {
-  // name: "Lofanbl4"
-// };
-// Object.defineProperty(user, "name", {
-//   value: "lofanbl4",
-// });
-// Object.defineProperty(user, "name", {
-//   value: "Lofanlb4",
-//   enumerable: true,
-//   configurable: true
-// });
-
-// console.log(Object.getOwnPropertyDescriptor(user, "name"));
-
-// user.name = "Pete";
-
-// let user = {
-//   name: "lofanbl4",
-//   toString() {
-//     return this.name;
+//   size: {
+//     value: 14,
+//     writable: true
 //   }
-// };
+// });
 
-// Object.defineProperty(user, "toString", {
-//   enumerable: false
-// })
+// console.log(rabbit.eats);
+// console.log(rabbit);
 
-// for (let key in user) console.log(key);
-// console.log(Object.keys(user));
-// Object.defineProperty(user, "name", {
-//   value: "Lofanbl4",
+
+// console.log(Object.getPrototypeOf(rabbit) === animal);
+// Object.setPrototypeOf(rabbit, {});
+// console.log(Object.getPrototypeOf(rabbit));
+
+// let clone = Object.create({}, Object.getOwnPropertyDescriptors(rabbit));
+
+// console.log(clone);
+
+// let obj = Object.create(null);
+// let obj = {};
+
+// let key = prompt("Enter the key", "__proto__");
+// obj[key] = null;
+
+// console.log(obj[key]);
+// obj[key] = 123;
+// console.log(obj[key]);
+
+// let dictionary = Object.create(null);
+
+// dictionary.apple = "Apple";
+// dictionary.__proto__ = "test";
+
+// for (let key in dictionary) {
+//   alert(key);
+// }
+
+// dictionary.toString = function() {
+//   return Object.getOwnPropertyNames(this).join(",");
+// }
+
+// Object.defineProperty(dictionary, "toString", {
+//   value: function() {
+//     return Object.keys(this).join(",");
+//   },
+//   enumerable: false,
 //   writable: true,
 // });
 
-// console.log(Object.getOwnPropertyDescriptor(user, "name"));
+// alert(dictionary);
 
-// Object.defineProperty(user, "name", {
-//   writable: false,
-// });
+// function Rabbit(name) {
+//   this.name = name;
+// }
+// Rabbit.prototype.sayHi = function() {
+//   console.log(this.name);
+// }
 
-// console.log(Object.getOwnPropertyDescriptor(user, "name"))
-// console.log(user);
+// let rabbit = new Rabbit("Rabbit");
 
-// let descriptor = Object.getOwnPropertyDescriptor(Math, "PI");
-// console.log(descriptor);
-
-// let user = {};
-// Object.defineProperties(user, {
-//   name: {value: "Lofanbl4", writable: false, enumerable: true},
-//   age: {value: 18, writable: true, enumerable: true}
-// });
-
-// console.log(user);
-// console.log(Object.getOwnPropertyDescriptors(user));
-
-// let clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(user));
-// console.log(Object.getOwnPropertyDescriptors(clone));
-
-// let assignClone = Object.assign({}, user);
-// console.log(Object.getOwnPropertyDescriptors(assignClone));
+// rabbit.sayHi();
+// Rabbit.prototype.sayHi();
+// Object.getPrototypeOf(rabbit).sayHi(); // -> undefined
+// rabbit.__proto__.sayHi();
