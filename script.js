@@ -5,22 +5,12 @@ console.log(arr.__proto__);
 
 class MyArray {
   constructor() {
-    this.length = arguments.length;
+    Object.defineProperty(this, "length", {
+      value: arguments.length,
+      writable: true
+    });
     for (let i = 0; i < arguments.length; i++) {
       this[i] = arguments[i];
-    }
-    this[Symbol.iterator] = function() {
-      return {
-        self: this,
-        index: 0,
-        next() {
-          if (this.self.hasOwnProperty(this.index)) {
-            return {done: false, value: this.self[this.index++]};
-          } else {
-            return {done: true};
-          }
-        }
-      }
     }
   }
   pop() {
@@ -60,4 +50,26 @@ class MyArray {
   }
 }
 
+class MyArrayIterator {
+  constructor(array) {
+    this.array = array;
+    this.index = 0;
+  }
+  next() {
+    if (this.array.hasOwnProperty(this.index)) {
+      return {done: false, value: this.array[this.index++]};
+    } else {
+      return {done: true}
+    }
+  }
+}
+
+MyArray.prototype[Symbol.iterator] = function() {
+  return new MyArrayIterator(this);
+}
+
 let myArr = new MyArray(1, 2, 3);
+console.log(myArr);
+for (let elem of myArr) {
+  console.log(elem);
+}
